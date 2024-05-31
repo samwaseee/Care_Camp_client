@@ -2,8 +2,8 @@ import { Navbar } from "@nextui-org/navbar";
 
 const Nav = () => {
     return (
-        <Navbar shouldHideOnScroll className="fixed w-full">
-            <div className="navbar bg-opacity-90 bg-second">
+        <Navbar shouldHideOnScroll className="fixed z-10 w-full">
+            <div className="navbar bg-opacity-50 bg-second">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
