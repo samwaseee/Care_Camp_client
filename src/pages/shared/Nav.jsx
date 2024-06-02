@@ -1,8 +1,20 @@
 import { Navbar } from "@nextui-org/react";
 import { FaHandHoldingMedical } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Nav = () => {
+
+    const { user, logOut } = useAuth();
+
+    const handleSignout = () => {
+        logOut()
+            .then(() => {
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
 
     const links = <>
         <li>
@@ -11,7 +23,7 @@ const Nav = () => {
                     fontWeight: isActive ? "bold" : "",
                     color: isActive ? "#f5333f" : "black",
                     backgroundColor: isActive ? "transparent" : "",
-                    boxShadow: isActive ?  "0 2px 4px rgba(0, 0, 0, 0.2)" : "",
+                    boxShadow: isActive ? "0 2px 4px rgba(0, 0, 0, 0.2)" : "",
                     viewTransitionName: isTransitioning ? "slide" : "",
                 };
             }}>Home
@@ -23,7 +35,7 @@ const Nav = () => {
                     fontWeight: isActive ? "bold" : "",
                     color: isActive ? "#f5333f" : "black",
                     backgroundColor: isActive ? "transparent" : "",
-                    boxShadow: isActive ?  "0 2px 4px rgba(0, 0, 0, 0.2)" : "",
+                    boxShadow: isActive ? "0 2px 4px rgba(0, 0, 0, 0.2)" : "",
                     viewTransitionName: isTransitioning ? "slide" : "",
                 };
             }}>Available Camps
@@ -69,7 +81,16 @@ const Nav = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link to={'/signin'} className="btn text-blood rounded-none font-taj text-lg"><FaHandHoldingMedical /> Join us</Link>
+                    {
+                        user ? <details className="dropdown">
+                            <summary className="m-1 btn rounded-none"> <img src={user.photoURL} alt="no image" /> </summary>
+                            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100">
+                                <li className="m-2">{user.displayName}</li>
+                                <li><button onClick={handleSignout}>Sign Out</button></li>
+                            </ul>
+                        </details> :
+                            <Link to={'/signin'} className="btn text-blood rounded-none font-taj text-lg"><FaHandHoldingMedical /> Join us</Link>
+                    }
                 </div>
             </div>
         </Navbar>
