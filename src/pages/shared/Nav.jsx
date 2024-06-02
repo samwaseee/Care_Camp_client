@@ -69,7 +69,7 @@ const Nav = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn text-blood rounded-none font-taj text-lg"><FaHandHoldingMedical /> Join us</a>
+                    <Link to={'/signin'} className="btn text-blood rounded-none font-taj text-lg"><FaHandHoldingMedical /> Join us</Link>
                 </div>
             </div>
         </Navbar>
