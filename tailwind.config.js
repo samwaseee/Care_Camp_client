@@ -17,5 +17,6 @@ export default {
         'mon': ['Montserrat', 'sans-serif']
     }
   },
+  darkMode: "class",
   plugins: [require("daisyui"),nextui()],
 }
