@@ -1,3 +1,4 @@
+import { Zoom } from 'react-awesome-reveal';
 import AwesomeSlider from 'react-awesome-slider';
 import withAutoplay from 'react-awesome-slider/dist/autoplay';
 import 'react-awesome-slider/dist/styles.css';
@@ -15,16 +16,18 @@ const Home = () => {
             >
                 <div>
                     <img src="https://www.ifrc.org/sites/default/files/styles/hero_image_desktop_1280_x_600_/public/2021-05/p-FJI0614%201280x500.jpg?itok=y3WEJrXb" alt="Image 0" className='w-[100vw] h-1/2' />
-                    <div className='max-w-2xl grid absolute bottom-0 left-1/4 bg-second'>
-                        <div className="card">
-                            <div className="card-body">
-                                <p>The IFRC is committed to supporting humanitarian action that is as local as possible, as international as necessary. Our 191 National Red Cross and Red Crescent Societies are the lead actors in preparing for, responding to and helping communities recover from emergencies. In times of increased need, our global disaster response system effectively supports and coordinates their lifesaving work.</p>
-                                <div className="card-actions justify-end">
-                                    <button className="btn rounded-none">Read story...</button>
+                    <Zoom>
+                        <div className='max-w-2xl -mt-80 mx-auto bg-second'>
+                            <div className="card">
+                                <div className="card-body">
+                                    <p>The IFRC is committed to supporting humanitarian action that is as local as possible, as international as necessary. Our 191 National Red Cross and Red Crescent Societies are the lead actors in preparing for, responding to and helping communities recover from emergencies. In times of increased need, our global disaster response system effectively supports and coordinates their lifesaving work.</p>
+                                    <div className="card-actions justify-end">
+                                        <button className="btn rounded-none">Read story...</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Zoom>
 
                 </div>
                 <div>
