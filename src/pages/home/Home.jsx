@@ -3,6 +3,7 @@ import withAutoplay from 'react-awesome-slider/dist/autoplay';
 import 'react-awesome-slider/dist/styles.css';
 import 'animate.css';
 import { Fade } from 'react-awesome-reveal';
+import Camps from './campSection/Camps';
 
 const AutoplaySlider = withAutoplay(AwesomeSlider);
 
@@ -61,6 +62,7 @@ const Home = () => {
                     </div>
                 </div>
             </AutoplaySlider>
+            <Camps></Camps>
         </>
     );
 };
