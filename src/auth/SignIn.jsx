@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2'
 import useAuth from '../hooks/useAuth';
+import SocialSignIn from './SocialSignIn';
 
 const SignIn = () => {
     const [disabled, setDisabled] = useState(true);
@@ -94,7 +95,7 @@ const SignIn = () => {
                             </div>
                         </form>
                         <p className='mx-auto mb-5'><small>New Here? <Link to="/signup" className='font-bold'>Create an account</Link> </small></p>
-                        {/* <SocialSignIn></SocialSignIn> */}
+                        <SocialSignIn></SocialSignIn>
                     </div>
                 </div>
             </div>

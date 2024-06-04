@@ -1,6 +1,10 @@
+import moment from 'moment';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const ACamp = ({camp,index}) => {
+
+    
 
     const {campName,contactInformation,dateTime,description,fees,healthcareProfessional,image,location,participantCount,registrationDeadline,servicesOffered,sponsors,_id} = camp;
 
@@ -9,10 +13,11 @@ const ACamp = ({camp,index}) => {
             <figure  className='max-w-[700px]'><img src={image} alt={campName}/></figure>
             <div className="card-body w-96">
                 <h2 className="card-title">{campName}</h2>
-                <p>{description}</p> 
-                <p>Event Date: {dateTime}</p>
+                <p>{description}</p>
+                <p>Camp Lead By: {healthcareProfessional?.name}</p> 
+                <p>Event Date: {moment(dateTime).format('dddd, MMMM Do YYYY, h:mm:ss a')}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-outline text-blood">Join Camp</button>
+                    <Link to={`/camps/${_id}`}><button className="btn btn-outline text-blood">Join Camp</button></Link>
                 </div>
             </div>
         </div>

@@ -42,6 +42,8 @@ const Nav = () => {
             </NavLink>
         </li>
         <li>
+            {
+                user && 
             <NavLink to="/dashboard" className="rounded-sm" style={({ isActive, isTransitioning }) => {
                 return {
                     fontWeight: isActive ? "bold" : "",
@@ -53,12 +55,13 @@ const Nav = () => {
                 };
             }}>DashBoard
             </NavLink>
+            }
         </li>
     </>
 
     return (
         <Navbar shouldHideOnScroll className="fixed z-10 w-full">
-            <div className="navbar bg-opacity-30 bg-second">
+            <div className="navbar bg-opacity-70 bg-second">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -83,13 +86,13 @@ const Nav = () => {
                 <div className="navbar-end">
                     {
                         user ? <details className="dropdown">
-                            <summary className="m-1 btn rounded-none"> <img src={user.photoURL} alt="no image" /> </summary>
-                            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100">
-                                <li className="m-2">{user.displayName}</li>
-                                <li><button onClick={handleSignout}>Sign Out</button></li>
+                            <summary className="m-1 btn rounded-none btn-ghost relative overflow-visible hover:-translate-y-1 shadow-xl bg-background/30 after:content-[''] after:absolute after:inset-0 after:bg-background/40 after:z-[-1] after:transition after:!duration-500 hover:after:scale-150 hover:after:opacity-0"> <img src={user.photoURL} alt="no image" width={'32px'}/> </summary>
+                            <ul className="p-2 shadow menu dropdown-content z-[1] bg-second bg-opacity-80 right-0">
+                                <li className="m-2 w-max">{user.displayName}</li>
+                                <li><button onClick={handleSignout} className="rounded-none text-blood">Sign Out</button></li>
                             </ul>
                         </details> :
-                            <Link to={'/signin'} className="btn text-blood rounded-none font-taj text-lg"><FaHandHoldingMedical /> Join us</Link>
+                            <Link to={'/signin'} className="btn text-blood rounded-none font-taj text-lg relative overflow-visible hover:-translate-y-1 shadow-xl bg-background/30 after:content-[''] after:absolute after:inset-0 after:bg-background/40 after:z-[-1] after:transition after:!duration-500 hover:after:scale-150 hover:after:opacity-0"><FaHandHoldingMedical /> Join us</Link>
                     }
                 </div>
             </div>

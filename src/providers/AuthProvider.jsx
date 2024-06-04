@@ -2,10 +2,12 @@ import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
+import { TwitterAuthProvider } from "firebase/auth/web-extension";
 
 export const AuthContext = createContext(null);
 
 const GoogleProvider = new GoogleAuthProvider();
+const TwitterProvider = new TwitterAuthProvider();
 
 
 const auth = getAuth(app);
@@ -24,7 +26,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
-    
+
     const updateUserProfile = (name, photo) => {
         return updateProfile(auth.currentUser, {
             displayName: name, photoURL: photo
@@ -34,6 +36,11 @@ const AuthProvider = ({ children }) => {
     const GoogleLogin = () => {
         return signInWithPopup(auth, GoogleProvider)
     }
+
+    const TwitterLogin = () => {
+        return signInWithPopup(auth, TwitterProvider)
+    }
+        
 
     const logOut = () => {
         setLoading(true);
@@ -57,6 +64,7 @@ const AuthProvider = ({ children }) => {
         signIn,
         updateUserProfile,
         GoogleLogin,
+        TwitterLogin,
         logOut
     }
 
