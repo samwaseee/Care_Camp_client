@@ -22,7 +22,7 @@ const Home = () => {
                         <div className="card">
                             <Fade direction='down'>
                                 <div className="card-body">
-                                    <p>The IFRC is committed to supporting humanitarian action that is as local as possible, as international as necessary. Our 191 National Red Cross and Red Crescent Societies are the lead actors in preparing for, responding to and helping communities recover from emergencies. In times of increased need, our global disaster response system effectively supports and coordinates their lifesaving work.</p>
+                                    <p>An organization of Care Camp volunteers stood out as a ray of hope among the COVID-19 pandemic on a global scale. A response camp was established, together with testing facilities, safety supplies, and community education regarding preventive measures. They also provided people in need with crucial services and psychological support. Their unceasing efforts helped to strengthen relationships among neighbors and drastically lower the infection rate in their community during these trying times. Their success serves as an example of the strength of a strong sense of community, resiliency, and teamwork in the face of a major international emergency.</p>
                                     <div className="card-actions justify-end">
                                         <button className="btn rounded-none">Read story...</button>
                                     </div>
@@ -37,7 +37,7 @@ const Home = () => {
                         <Fade direction='up'>
                             <div className="card">
                                 <div className="card-body">
-                                    <p>IFRC’s Health and Care Framework sets out our contribution to healthier, more resilient communities and individuals. It presents the collective priorities and programming modalities that define our work in health and care. It illustrates a pathway for National Societies’ engagement with public health authorities in their auxiliary role around health and care. And it links the work of the IFRC in health and care to the global agenda of the Sustainable Development Goals (SDGs).</p>
+                                    <p>Care Camp’s Health and Care Framework” emerged as a beacon of hope in a world grappling with health disparities. The framework, with its collective priorities and programming modalities, revolutionized the approach to health and care. By engaging with public health authorities and aligning with the Sustainable Development Goals (SDGs), Care Camp transformed communities into healthier, more resilient havens. Their success story is a testament to their commitment to global health and their unwavering dedication to making the world a healthier place.</p>
                                     <div className="card-actions justify-end">
                                         <button className="btn rounded-none">Read story...</button>
                                     </div>
@@ -52,7 +52,7 @@ const Home = () => {
                         <Fade direction='up'>
                             <div className="card">
                                 <div className="card-body">
-                                    <p>The IFRC, with the support of partners, works at the community, national and global levels to reduce people’s risk of contracting non-communicable diseases. Our approach promotes healthy choices and behaviours at all stages of a person’s life.</p>
+                                    <p>With the support of its partners, Care Camp launched a comprehensive program aimed at reducing the risk of non-communicable diseases. They started by educating the community about the importance of a balanced diet, regular exercise, and routine health check-ups. They organized workshops, fitness camps, and health fairs, promoting healthy behaviors at all stages of life.</p>
                                     <div className="card-actions justify-end">
                                         <button className="btn rounded-none">Read story...</button>
                                     </div>
