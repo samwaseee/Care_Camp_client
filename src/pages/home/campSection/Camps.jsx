@@ -5,7 +5,7 @@ import useCamps from "../../../hooks/useCamps";
 
 const Camps = () => {
 
-    const [camps, loading] = useCamps();
+    const [camps, loading] = useCamps("most-registered");
     const times = new Array(6).fill(null);
 
     return (
