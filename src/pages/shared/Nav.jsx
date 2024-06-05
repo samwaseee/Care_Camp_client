@@ -60,7 +60,7 @@ const Nav = () => {
         <li>
             {
                 user && 
-            <NavLink to="/dashboard" className="rounded-sm" style={({ isActive, isTransitioning }) => {
+            <NavLink to="/dashboard/organizerProfile" className="rounded-sm" style={({ isActive, isTransitioning }) => {
                 return {
                     fontWeight: isActive ? "bold" : "",
                     color: isActive ? "#f5333f" : "black",
@@ -101,7 +101,7 @@ const Nav = () => {
                 <div className="navbar-end">
                     {
                         user ? <details className="dropdown">
-                            <summary className="m-1 btn rounded-none btn-ghost relative overflow-visible hover:-translate-y-1 shadow-xl bg-background/30 after:content-[''] after:absolute after:inset-0 after:bg-background/40 after:z-[-1] after:transition after:!duration-500 hover:after:scale-150 hover:after:opacity-0"> <img src={user.photoURL} alt="no image" width={'32px'}/> </summary>
+                            <summary className="m-1 btn rounded-none btn-ghost relative overflow-visible hover:-translate-y-1 shadow-xl after:content-[''] after:absolute after:inset-0 after:bg-background/40 after:z-[-1] after:transition after:!duration-500 hover:after:scale-150 hover:after:opacity-0"> <img src={user.photoURL} alt="no image" width={'40px'}/> </summary>
                             <ul className="p-2 shadow menu dropdown-content z-[1] bg-second bg-opacity-80 right-0">
                                 <li className="m-2 w-max">{user.displayName}</li>
                                 <li><button onClick={handleSignout} className="rounded-none text-blood">Sign Out</button></li>
