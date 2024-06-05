@@ -45,12 +45,12 @@ const SocialSignIn = () => {
     return (
         <div className="px-8 mb-8">
             <div className="divider"></div>
-            <div className="space-x-10 flex justify-center">
+            <div className="space-y-6">
                 <button onClick={handleGoogleLogin} className="btn btn-ghost">
-                    <FaGoogle className="mr-2" size={'40'}></FaGoogle>
+                    <FaGoogle size={'40'}/>Sign in with Google
                 </button>
                 <button onClick={handleTwitterLogin} className="btn btn-ghost">
-                    <FaXTwitter size={'40'}/>
+                    <FaXTwitter size={'40'}/>Sign in with Twitter / X
                 </button>
             </div>
         </div>

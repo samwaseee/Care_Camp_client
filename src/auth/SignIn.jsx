@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2'
 import useAuth from '../hooks/useAuth';
 import SocialSignIn from './SocialSignIn';
+import { Parallax } from 'react-parallax';
 
 const SignIn = () => {
     const [disabled, setDisabled] = useState(true);
@@ -59,14 +60,26 @@ const SignIn = () => {
             <Helmet>
                 <title>Bistro Boss | SignIn</title>
             </Helmet>
-            <div className="hero min-h-screen bg-base-200 py-20 w-[100vw]">
-                <div className="hero-content flex-col md:flex-row">
+            <div className="hero min-h-screen bg-base-200 py-24 w-[100vw">
+                <div className="hero-content flex-col md:flex-row gap-72">
                     <div className="bg-neutral-950 bg-opacity-50 w-full absolute">
-                        <img src="https://www.ifrc.org/sites/default/files/styles/hero_image_desktop_1280_x_600_/public/2021-05/p-ITA0199%201280x500.jpg?itok=Drw7U-kO" alt="" className='relative h-96 w-[100vw] -z-10' />
+                        <Parallax
+                            blur={{ min: -15, max: 15 }}
+                            bgImage={"https://www.ifrc.org/sites/default/files/styles/hero_image_desktop_1280_x_600_/public/2021-05/p-ITA0199%201280x500.jpg?itok=Drw7U-kO"}
+                            strength={500}
+                            bgImageStyle={{  height:'650px', objectPosition: 'center' }}
+                        >
+                            <div className="hero items-center h-96">
+                                <div className="hero-overlay bg-opacity-60"></div>
+                                <div className="hero-content text-center text-neutral-content">
+                                    <div className="max-w-md py-32"></div>
+                                </div>
+                            </div>
+                        </Parallax>
                     </div>
                     <div className='z-10 text-neutral-50'>
                         <h1 className="text-5xl font-bold">Sign In now!</h1>
-                        <p className="py-6">To help the community grow </p>
+                        <p className="py-6">Participate in the ever growing healtcare community</p>
                     </div>
                     <div className="card md:w-96 shadow-2xl bg-base-100">
                         <form onSubmit={handleSignIn} className="card-body">
