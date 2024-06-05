@@ -3,3 +3,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.transition-top {
+    transition: top 0.9s ease-in-out;
+  }
+.transition-down {
+    transition: top 0.3s ease-in-out;
+  }

@@ -1,7 +1,6 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import ViewListIcon from '@mui/icons-material/ViewList';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import ViewQuiltIcon from '@mui/icons-material/ViewQuilt';
 
 import useCamps from "../../hooks/useCamps";
 import ACamp from "./ACamp";
@@ -10,18 +9,26 @@ import { useState } from "react";
 const AVailableCamps = () => {
 
     const [sort, setSort] = useState("");
+    const [search, setSearch] = useState("");
 
-    const [camps, loading, refetch] = useCamps(sort);
+    const [camps, loading, refetch] = useCamps(sort,search);
 
     const [view, setView] = useState('list');
 
     const times = new Array(6).fill(null);
 
+    const handleSearch = e =>{
+        e.preventDefault();
+        const form = e.target;
+        const searchInput = form.search.value;
+
+        setSearch(searchInput)
+        refetch();
+    }
 
 
     const handleSort = (e) => {
         setSort(e.target.value)
-        console.log(sort)
         refetch();
     };
 
@@ -32,12 +39,12 @@ const AVailableCamps = () => {
     return (
         <div className="py-20">
             <div className="card card-side bg-base-100 shadow-xl mb-5 justify-between p-2">
-                <div className="flex flex-1">
-                    <input type="text" placeholder="Search" className="input input-bordered md:w-auto" />
+                <form onSubmit={handleSearch} className="flex flex-1">
+                    <input type="text" name="search" placeholder="Search" className="input input-bordered md:w-auto" />
                     <button className="btn btn-ghost">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </button>
-                </div>
+                </form>
                 <select
                     className="select w-full max-w-xs"
                     value={sort}

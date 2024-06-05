@@ -1,11 +1,13 @@
-import { Navbar } from "@nextui-org/react";
 import { FaHandHoldingMedical } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { useEffect, useState } from "react";
 
 const Nav = () => {
 
     const { user, logOut } = useAuth();
+    const [position, setPosition] = useState(window.scrollY);
+    const [visible, setVisible] = useState(true);
 
     const handleSignout = () => {
         logOut()
@@ -15,6 +17,20 @@ const Nav = () => {
                 console.log(error)
             })
     }
+
+    useEffect(() => {
+        const handleScroll = () => {
+            let moving = window.scrollY;
+            setVisible(position > moving || moving < 10);
+            setPosition(moving);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [position]);
+
+    const navbarClass = visible ? "top-0 transition-down" : "-top-80 transition-top ";
 
     const links = <>
         <li>
@@ -60,8 +76,7 @@ const Nav = () => {
     </>
 
     return (
-        <Navbar shouldHideOnScroll className="fixed z-10 w-full">
-            <div className="navbar bg-opacity-70 bg-second">
+            <div className={`navbar bg-opacity-70 bg-second ${navbarClass} fixed w-full z-50`}>
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -96,7 +111,6 @@ const Nav = () => {
                     }
                 </div>
             </div>
-        </Navbar>
     );
 };
 

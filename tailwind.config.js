@@ -4,7 +4,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/components/[object Object].js"
+    "./node_modules/@nextui-org/theme/dist/components/**/*.js"
   ],
   theme: {
     extend: {},

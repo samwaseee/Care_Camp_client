@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { NextUIProvider } from '@nextui-org/react';
 import './index.css';
+
 import router from './router/Routes';
 import AuthProvider from './providers/AuthProvider';
 import { HelmetProvider } from 'react-helmet-async';

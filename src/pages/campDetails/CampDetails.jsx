@@ -1,13 +1,12 @@
 import moment from "moment";
 import { Helmet } from "react-helmet";
-import { FaCheck, FaInstagram } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { useLoaderData } from "react-router-dom";
 
 const CampDetails = () => {
 
     const camp = useLoaderData();
-    const { campName, contactInformation, dateTime, description, fees, healthcareProfessional, image, location, participantCount, registrationDeadline, servicesOffered, sponsors, _id } = camp;
+    const { campName, contactInformation, dateTime, description, fees, healthcareProfessional, image, location, participantCount, registrationDeadline, servicesOffered, sponsors} = camp;
 
 
     return (
@@ -32,7 +31,7 @@ const CampDetails = () => {
                             <p>{description}</p>
                         </div>
                     </div>
-                    <p className='text-2xl mb-10'>Participant: {participantCount} <br /> Camp Date : {moment(dateTime).format('dddd, MMMM Do YYYY, h:mm:ss a')}</p>
+                    <p className='text-2xl mb-10'>Participant: {participantCount} <br /> Camp Date : {dateTime}</p>
                     <p><span className="text-xl font-semibold ">Registration fees: {fees} </span> per person</p>
                     <div className="flex flex-wrap justify-between">
                         <div className="flex items-center gap-7 my-5">
