@@ -30,7 +30,7 @@ const Camps = () => {
                             camp={camp}></Camp>)
                 }
             </div>
-            <Link className="btn btn-outline ml-[46vw] rounded-none text-blood">See all Camps</Link>
+            <Link to={'/camps'} onClick={() => window.reload()} className="btn btn-outline ml-[46vw] rounded-none text-blood">See all Camps</Link>
         </>
     );
 };

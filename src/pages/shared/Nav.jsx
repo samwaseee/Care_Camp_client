@@ -92,7 +92,7 @@ const Nav = () => {
                                 <li><button onClick={handleSignout} className="rounded-none text-blood">Sign Out</button></li>
                             </ul>
                         </details> :
-                            <Link to={'/signin'} className="btn text-blood rounded-none font-taj text-lg relative overflow-visible hover:-translate-y-1 shadow-xl bg-background/30 after:content-[''] after:absolute after:inset-0 after:bg-background/40 after:z-[-1] after:transition after:!duration-500 hover:after:scale-150 hover:after:opacity-0"><FaHandHoldingMedical /> Join us</Link>
+                            <Link to={'/signin'} onClick={() => window.reload()} className="btn text-blood rounded-none font-taj text-lg relative overflow-visible hover:-translate-y-1 shadow-xl bg-background/30 after:content-[''] after:absolute after:inset-0 after:bg-background/40 after:z-[-1] after:transition after:!duration-500 hover:after:scale-150 hover:after:opacity-0"><FaHandHoldingMedical /> Join us</Link>
                     }
                 </div>
             </div>

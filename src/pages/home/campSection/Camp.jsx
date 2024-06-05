@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const Camp = ({camp}) => {
     return (
@@ -8,7 +9,7 @@ const Camp = ({camp}) => {
                 <h2 className="card-title">{camp.campName}</h2>
                 <p>{camp.description}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn bg-second text-blood">Join camp</button>
+                    <Link to={`/camps/${camp._id}`}><button className="btn bg-second text-blood">Join camp</button></Link>
                 </div>
             </div>
         </div>
