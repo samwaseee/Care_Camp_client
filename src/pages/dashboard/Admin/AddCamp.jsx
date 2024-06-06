@@ -8,12 +8,14 @@ import { FiPlus } from 'react-icons/fi';
 import { useForm, useFieldArray } from 'react-hook-form';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { FormHelperText, TextField } from '@mui/material';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const AddCamp = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const { register, handleSubmit, control, reset } = useForm();
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
     const [dateTime, setDateTime] = useState(null);
     const [regdateTime, setRegDateTime] = useState(null);
@@ -45,10 +47,10 @@ const AddCamp = () => {
                 text: 'Please select both Date and Registration Date before submitting the form',
                 confirmButtonText: 'OK'
             });
-            return; 
+            return;
         }
-        console.log('form')
         console.log('Form Data:', data);
+
 
         try {
             const imageFile = new FormData();
@@ -58,9 +60,12 @@ const AddCamp = () => {
             if (res.data.success) {
                 console.log('Image URL:', res.data.data.display_url);
 
+                // eslint-disable-next-line no-unused-vars
+                const { photo, ...formData } = data;
 
                 const newCamp = {
-                    ...data,
+                    ...formData,
+                    sponsors: data.sponsors.map(sponsor => sponsor.name),
                     participantCount: 0,
                     image: res.data.data.display_url,
                     dateTime: dateTime?.format('dddd, MMMM Do YYYY, h:mm:ss a'),
@@ -72,20 +77,31 @@ const AddCamp = () => {
                     }
                 };
 
-                console.log('New Camp Data:', newCamp);
+                // console.log('New Camp Data:', newCamp);
 
-                // const campRes = await axiosPublic.post('/touristSpot', newCamp);
-                // if (campRes.data.insertedId) {
-                //     Swal.fire({
-                //         position: 'top-end',
-                //         icon: 'success',
-                //         title: `${data.campName} has been added successfully!`,
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     });
-                //     reset();
-                //     navigate('/dashboard/manageCamps');
-                // }
+                try {
+                    const campRes = await axiosSecure.post('/camps', newCamp);
+                    if (campRes.data.insertedId) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: `${newCamp.campName} has been added successfully!`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        reset();
+                        navigate('/dashboard/manageCamps');
+                    } 
+                } catch (error) {
+                    console.log('Error adding camp:', error);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while adding the camp. Please try again.',
+                        showConfirmButton: true,
+                    });
+                }
             }
         } catch (error) {
             console.error('Error uploading image:', error);
@@ -100,7 +116,7 @@ const AddCamp = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(formSubmit)} className="px-32 mx-auto text-black">
+        <form onSubmit={handleSubmit(formSubmit)} className="px-32 mx-auto my-20 text-black">
             <h3
                 className="text-6xl text-neutral-50 font-taj text-white text-center font-bold mb-20 p-20"
                 style={{
@@ -227,7 +243,7 @@ const AddCamp = () => {
                         className="textarea textarea-bordered w-full h-full"
                         name="short_description"
                         placeholder="Write a short description about the camp you are going to organize"
-                        {...register('short_description', { required: true })}
+                        {...register('description', { required: true })}
                     ></textarea>
                 </label>
                 <label className="form-control w-full">

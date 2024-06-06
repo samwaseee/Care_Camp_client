@@ -13,7 +13,6 @@ const SignIn = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -38,7 +37,7 @@ const SignIn = () => {
                         popup: 'animate__animated animate__fadeOutUp'
                     }
                 });
-                navigate(from, { replace: true });
+                navigate(location?.state ? location.state : '/');
             })
     }
 

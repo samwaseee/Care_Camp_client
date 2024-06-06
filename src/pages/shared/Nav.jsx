@@ -2,10 +2,12 @@ import { FaHandHoldingMedical } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
+import useAdmin from "../../hooks/useAdmin";
 
 const Nav = () => {
 
     const { user, logOut } = useAuth();
+    const [isAdmin] = useAdmin();
     const [position, setPosition] = useState(window.scrollY);
     const [visible, setVisible] = useState(true);
 
@@ -60,7 +62,7 @@ const Nav = () => {
         <li>
             {
                 user && 
-            <NavLink to="/dashboard/organizerProfile" className="rounded-sm" style={({ isActive, isTransitioning }) => {
+            <NavLink to={isAdmin ? '/dashboard/organizerProfile' : '/dashboard/participantProfile'} className="rounded-sm" style={({ isActive, isTransitioning }) => {
                 return {
                     fontWeight: isActive ? "bold" : "",
                     color: isActive ? "#f5333f" : "black",
@@ -69,7 +71,7 @@ const Nav = () => {
                     borderRight: isActive ? "solid #f5333f" : "",
                     viewTransitionName: isTransitioning ? "slide" : "",
                 };
-            }}>DashBoard
+            }}>Dashboard
             </NavLink>
             }
         </li>

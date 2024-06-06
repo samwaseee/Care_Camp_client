@@ -65,6 +65,14 @@ const router = createBrowserRouter([
                 path: 'manageRegCamps',
                 element: <ManageRegCamps></ManageRegCamps>
             },
+
+
+            //participant
+
+            {
+                path: 'participantProfile',
+                element: <Profile></Profile>
+            }
         ]
     }
 ]);

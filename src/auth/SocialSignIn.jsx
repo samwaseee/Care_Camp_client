@@ -1,5 +1,5 @@
 import { FaGoogle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { FaXTwitter } from "react-icons/fa6";
@@ -9,6 +9,7 @@ const SocialSignIn = () => {
     const { GoogleLogin, TwitterLogin } = useAuth();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleGoogleLogin = () => {
         GoogleLogin()
@@ -21,7 +22,7 @@ const SocialSignIn = () => {
                 axiosPublic.post('/users', userInfo)
                 .then(res =>{
                     console.log(res.data);
-                    navigate('/');
+                    navigate(location?.state ? location.state : '/');
                 })
             })
     }
@@ -37,7 +38,7 @@ const SocialSignIn = () => {
                 axiosPublic.post('/users', userInfo)
                 .then(res =>{
                     console.log(res.data);
-                    navigate('/');
+                    navigate(location?.state ? location.state : '/');
                 })
             })
     }

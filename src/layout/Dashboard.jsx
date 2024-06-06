@@ -3,10 +3,12 @@ import useAuth from "../hooks/useAuth";
 import { NavLink, Outlet } from "react-router-dom";
 import { FaHome, FaSearch } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa6";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
 
     const { user } = useAuth();
+    const [isAdmin] = useAdmin();
 
     return (
         <>
@@ -22,15 +24,28 @@ const Dashboard = () => {
                     </div>
                     <Outlet></Outlet>
                 </div>
-                <div className="drawer-side">
+                <div className="drawer-side z-50">
                     <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 min-h-full bg-neutral-800 text-neutral-50 space-y-2">
 
-                        <li> <NavLink to='/dashboard/organizerProfile'>Organizer Profile</NavLink> </li>
-                        <li> <NavLink to='/dashboard/addCamp'>Add Camp</NavLink> </li>
-                        <li> <NavLink to='/dashboard/manageCamps'>Manage Camps</NavLink> </li>
-                        <li> <NavLink to='/dashboard/manageRegCamps'>Manage Registered Camps</NavLink> </li>
+                        {
+                            isAdmin ?
+                                <>
+                                    <li> <NavLink to='/dashboard/organizerProfile'>Organizer Profile</NavLink> </li>
+                                    <li> <NavLink to='/dashboard/addCamp'>Add Camp</NavLink> </li>
+                                    <li> <NavLink to='/dashboard/manageCamps'>Manage Camps</NavLink> </li>
+                                    <li> <NavLink to='/dashboard/manageRegCamps'>Manage Registered Camps</NavLink> </li>
 
+                                </>
+                                :
+                                <>
+                                    <li> <NavLink to='/dashboard/participantProfile'>Profile</NavLink> </li>
+                                    <li> <NavLink to='/dashboard/annalytics'>Annalytics</NavLink> </li>
+                                    <li> <NavLink to='/dashboard/registeredCamps'>Registered Camps</NavLink> </li>
+                                    <li> <NavLink to='/dashboard/paymentHistory'>Payment History</NavLink> </li>
+
+                                </>
+                        }
                         <div className="divider bg-second h-1"></div>
                         <li>
                             <NavLink to="/">

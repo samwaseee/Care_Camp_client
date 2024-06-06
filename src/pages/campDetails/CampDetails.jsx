@@ -107,6 +107,7 @@ const CampDetails = () => {
                                                 campId: _id,
                                                 email: user.email,
                                                 userName: user.displayName,
+                                                organizerMail: contactInformation.email,
                                                 campName,
                                                 image,
                                                 fees,
