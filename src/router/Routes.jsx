@@ -10,6 +10,8 @@ import Dashboard from "../layout/Dashboard";
 import UpdateProfile from "../pages/dashboard/shared/UpdateProfile";
 import Profile from "../pages/dashboard/shared/Profile";
 import AddCamp from "../pages/dashboard/Admin/AddCamp";
+import ManageRegCamps from "../pages/dashboard/Admin/ManageRegCamps";
+import ManageCamps from "../pages/dashboard/Admin/ManageCamps";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
             {
                 path: 'addCamp',
                 element: <AddCamp></AddCamp>
+            },
+            {
+                path: 'manageCamps',
+                element: <ManageCamps></ManageCamps>
+            },
+            {
+                path: 'manageRegCamps',
+                element: <ManageRegCamps></ManageRegCamps>
             },
         ]
     }

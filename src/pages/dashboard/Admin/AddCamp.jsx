@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { useForm, useFieldArray } from 'react-hook-form';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import { FormHelperText, TextField } from '@mui/material';
 
 const AddCamp = () => {
     const { user } = useAuth();
@@ -28,8 +29,25 @@ const AddCamp = () => {
     });
 
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`;
+    if (servicesFields.length === 0) {
+        appendService({ name: '', description: '' });
+    }
+    if (sponsorsFields.length === 0) {
+        appendSponsor({ name: '' });
+    }
 
-    const onSubmit = async (data) => {
+    const formSubmit = async (data) => {
+        if (!dateTime || !regdateTime) {
+            // Show a warning using a modal or alert
+            Swal.fire({
+                icon: 'warning',
+                title: 'Date and/or Registration Date are not selected',
+                text: 'Please select both Date and Registration Date before submitting the form',
+                confirmButtonText: 'OK'
+            });
+            return; 
+        }
+        console.log('form')
         console.log('Form Data:', data);
 
         try {
@@ -40,7 +58,33 @@ const AddCamp = () => {
             if (res.data.success) {
                 console.log('Image URL:', res.data.data.display_url);
 
-                // Rest of the code to handle camp submission...
+
+                const newCamp = {
+                    ...data,
+                    image: res.data.data.display_url,
+                    dateTime: dateTime?.format('dddd, MMMM Do YYYY, h:mm:ss a'),
+                    registrationDeadline: regdateTime?.format('dddd, MMMM Do YYYY, h:mm:ss a'),
+                    contactInformation: {
+                        phone: data.contactInformation.phone,
+                        email: data.contactInformation.email,
+                        address: data.contactInformation.address
+                    }
+                };
+
+                console.log('New Camp Data:', newCamp);
+
+                // const campRes = await axiosPublic.post('/touristSpot', newCamp);
+                // if (campRes.data.insertedId) {
+                //     Swal.fire({
+                //         position: 'top-end',
+                //         icon: 'success',
+                //         title: `${data.campName} has been added successfully!`,
+                //         showConfirmButton: false,
+                //         timer: 1500
+                //     });
+                //     reset();
+                //     navigate('/dashboard/manageCamps');
+                // }
             }
         } catch (error) {
             console.error('Error uploading image:', error);
@@ -54,55 +98,8 @@ const AddCamp = () => {
         }
     };
 
-    // const onSubmit = async (data) => {
-
-    //     // try {
-    //     //     const imageFile = new FormData();
-    //     //     imageFile.append('image', data.photo[0]);
-    //     //     const res = await axiosPublic.post(image_hosting_api, imageFile);
-
-    //     //     if (res.data.success) {
-    //     //         const newCamp = {
-    //     //             ...data,
-    //     //             image: res.data.data.display_url,
-    //     //             dateTime: dateTime.format('dddd, MMMM Do YYYY, h:mm:ss a'),
-    //     //             registrationDeadline: regdateTime.format('dddd, MMMM Do YYYY, h:mm:ss a'),
-    //     //             contactInformation: {
-    //     //                 phone: data.user_name,
-    //     //                 email: user?.email,
-    //     //                 address: data.user_location
-    //     //             }
-    //     //         };
-
-    //     //         // const campRes = await axiosSecure.post('/touristSpot', newCamp);
-
-    //     //         // if (campRes.data.insertedId) {
-    //     //         //     Swal.fire({
-    //     //         //         position: 'top-end',
-    //     //         //         icon: 'success',
-    //     //         //         title: `${data.campName} has been added successfully!`,
-    //     //         //         showConfirmButton: false,
-    //     //         //         timer: 1500
-    //     //         //     });
-
-    //     //         //     reset();
-    //     //         //     navigate('/dashboard/manageCamps');
-    //     //         // }
-    //     //     }
-    //     // } catch (error) {
-    //     //     console.error('Error adding camp:', error);
-    //     //     Swal.fire({
-    //     //         position: 'top-end',
-    //     //         icon: 'error',
-    //     //         title: 'An error occurred while adding the camp.',
-    //     //         showConfirmButton: false,
-    //     //         timer: 1500
-    //     //     });
-    //     // }
-    // };
-
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="px-32 mx-auto text-black">
+        <form onSubmit={handleSubmit(formSubmit)} className="px-32 mx-auto text-black">
             <h3
                 className="text-6xl text-neutral-50 font-taj text-white text-center font-bold mb-20 p-20"
                 style={{
@@ -116,21 +113,22 @@ const AddCamp = () => {
             </h3>
             <div className="grid md:grid-cols-3 gap-3">
                 <label className="form-control w-full col-span-2">
-                    <label className="label">
+                    <div className="label">
                         <span className="label-text">Organizer mail</span>
-                    </label>
-                    <input
+                    </div>
+                    <input required
                         type="email"
-                        placeholder={user?.email} disabled
+                        placeholder={user?.email}
+                        defaultValue={user?.email}
                         {...register('contactInformation.email', { required: true })}
-                        className=" input-bordered w-full text-2xl font-taj font-bold"
+                        className="input input-bordered w-full text-2xl font-taj font-bold"
                     />
                 </label>
                 <label className="form-control w-full">
                     <div className="label">
                         <span className="label-text text-white">Camp Name</span>
                     </div>
-                    <input
+                    <input required
                         type="text"
                         name="campName"
                         placeholder="Type here"
@@ -138,33 +136,33 @@ const AddCamp = () => {
                         {...register('campName', { required: true })}
                     />
                 </label>
-                <div className="form-control w-full">
-                    <label className="label">
+                <label className="form-control w-full">
+                    <div className="label">
                         <span className="label-text">Phone*</span>
-                    </label>
-                    <input
+                    </div>
+                    <input required
                         type="tel"
                         placeholder="Enter phone number"
                         {...register('contactInformation.phone', { required: true })}
                         className="input input-bordered w-full"
                     />
-                </div>
-                <div className="form-control w-full">
-                    <label className="label">
+                </label>
+                <label className="form-control w-full">
+                    <div className="label">
                         <span className="label-text">Address</span>
-                    </label>
-                    <input
+                    </div>
+                    <input required
                         type="text"
                         placeholder="Enter address"
                         {...register('contactInformation.address', { required: true })}
                         className="input input-bordered w-full"
                     />
-                </div>
+                </label>
                 <label className="form-control w-full">
                     <div className="label">
                         <span className="label-text text-white">Fee</span>
                     </div>
-                    <input
+                    <input required
                         type="text"
                         name="fees"
                         placeholder="Write free if it's free"
@@ -176,7 +174,7 @@ const AddCamp = () => {
                     <div className="label">
                         <span className="label-text text-white">Location</span>
                     </div>
-                    <input
+                    <input required
                         type="text"
                         name="location"
                         placeholder="Type here"
@@ -192,7 +190,13 @@ const AddCamp = () => {
                         <DateTimePicker
                             value={dateTime}
                             onChange={newValue => setDateTime(newValue)}
-                            renderInput={(params) => <input required {...params} className="input input-bordered w-full" />}
+                            slots={{
+                                textField: TextField,
+                                dateTextFieldProps: {
+                                    helperText: !dateTime ? <FormHelperText error>Please select a date</FormHelperText> : null,
+                                    error: !dateTime ? true : false,
+                                }
+                            }}
                         />
                     </LocalizationProvider>
                 </label>
@@ -204,7 +208,13 @@ const AddCamp = () => {
                         <DateTimePicker
                             value={regdateTime}
                             onChange={newValue => setRegDateTime(newValue)}
-                            renderInput={(params) => <input required {...params} className="input input-bordered w-full" />}
+                            slots={{
+                                textField: TextField,
+                                dateTextFieldProps: {
+                                    helperText: !regdateTime ? <FormHelperText error>Please select a registration date</FormHelperText> : null,
+                                    error: !regdateTime ? true : false,
+                                }
+                            }}
                         />
                     </LocalizationProvider>
                 </label>
@@ -212,7 +222,7 @@ const AddCamp = () => {
                     <div className="label">
                         <span className="label-text text-white">Camp Description</span>
                     </div>
-                    <textarea
+                    <textarea required
                         className="textarea textarea-bordered w-full h-full"
                         name="short_description"
                         placeholder="Write a short description about the camp you are going to organize"
@@ -223,7 +233,7 @@ const AddCamp = () => {
                     <div className="label">
                         <span className="label-text text-white">Healthcare Professional</span>
                     </div>
-                    <input
+                    <input required
                         type="text"
                         name="healthcareProfessional_name"
                         placeholder="Name"
@@ -231,14 +241,14 @@ const AddCamp = () => {
                         {...register('healthcareProfessional.name', { required: true })}
                     />
                     <div className="flex gap-2">
-                        <input
+                        <input required
                             type="text"
                             name="healthcareProfessional_specialization"
                             placeholder="Specialization"
                             className="input input-bordered w-full"
                             {...register('healthcareProfessional.specialization', { required: true })}
                         />
-                        <input
+                        <input required
                             type="text"
                             name="healthcareProfessional_experience"
                             placeholder="Experience in Years"
@@ -246,7 +256,7 @@ const AddCamp = () => {
                             {...register('healthcareProfessional.experience', { required: true })}
                         />
                     </div>
-                    <textarea
+                    <textarea required
                         className="textarea textarea-bordered w-full h-full mt-2"
                         name="healthcareProfessional_bio"
                         placeholder="Bio"
@@ -259,14 +269,14 @@ const AddCamp = () => {
                     </div>
                     {servicesFields.map((field, index) => (
                         <div key={field.id} className="flex gap-2">
-                            <input
+                            <input required
                                 type="text"
                                 name={`servicesOffered[${index}].name`}
                                 placeholder="Service Name"
                                 className="input input-bordered w-full"
                                 {...register(`servicesOffered.${index}.name`, { required: true })}
                             />
-                            <textarea
+                            <textarea required
                                 className="textarea textarea-bordered w-full h-full"
                                 name={`servicesOffered[${index}].description`}
                                 placeholder="Service Description"
@@ -288,25 +298,19 @@ const AddCamp = () => {
                     </div>
                     {sponsorsFields.map((field, index) => (
                         <div key={field.id} className="flex gap-2">
-                            <input
+                            <input required
                                 type="text"
                                 name={`sponsors[${index}].name`}
                                 placeholder="Sponsor Name"
                                 className="input input-bordered w-full"
                                 {...register(`sponsors.${index}.name`, { required: true })}
                             />
-                            <textarea
-                                className="textarea textarea-bordered w-full h-full"
-                                name={`sponsors[${index}].description`}
-                                placeholder="Sponsor Description"
-                                {...register(`sponsors.${index}.description`, { required: true })}
-                            ></textarea>
                         </div>
                     ))}
                     <button
                         type="button"
                         className="btn btn-outline btn-success btn-sm mt-3"
-                        onClick={() => appendSponsor({ name: '', description: '' })}
+                        onClick={() => appendSponsor({ name: '' })}
                     >
                         <FiPlus /> Add Sponsor
                     </button>
@@ -315,7 +319,7 @@ const AddCamp = () => {
                     <div className="label">
                         <span className="label-text text-white">Upload Camp Image</span>
                     </div>
-                    <input
+                    <input required
                         type="file"
                         name="photo"
                         accept="image/*"
@@ -324,7 +328,7 @@ const AddCamp = () => {
                     />
                 </label>
             </div>
-            <input className="btn btn-primary mt-4 btn-block" type="submit" value="Add Camp" />
+            <input className="btn btn-outline text-blood mt-4 btn-block" type="submit" value="Add Camp" />
         </form>
     );
 };
