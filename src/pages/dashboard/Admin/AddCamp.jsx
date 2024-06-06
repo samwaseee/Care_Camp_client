@@ -61,6 +61,7 @@ const AddCamp = () => {
 
                 const newCamp = {
                     ...data,
+                    participantCount: 0,
                     image: res.data.data.display_url,
                     dateTime: dateTime?.format('dddd, MMMM Do YYYY, h:mm:ss a'),
                     registrationDeadline: regdateTime?.format('dddd, MMMM Do YYYY, h:mm:ss a'),

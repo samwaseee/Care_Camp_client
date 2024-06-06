@@ -1,12 +1,167 @@
 import moment from "moment";
 import { Helmet } from "react-helmet";
-import { FaLocationDot } from "react-icons/fa6";
-import { useLoaderData } from "react-router-dom";
+import { FaHouseMedicalFlag, FaLocationDot } from "react-icons/fa6";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
 
 const CampDetails = () => {
 
     const camp = useLoaderData();
-    const { campName, contactInformation, dateTime, description, fees, healthcareProfessional, image, location, participantCount, registrationDeadline, servicesOffered, sponsors} = camp;
+    const { _id, campName, contactInformation, dateTime, description, fees, healthcareProfessional, image, location, participantCount, registrationDeadline, servicesOffered, sponsors } = camp;
+    const { user } = useAuth();
+    const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
+    const [hasJoined, setHasJoined] = useState(false);
+
+    const { refetch, data: joinedCamps = [] } = useQuery({
+        queryKey: ['joinedCamp', user?.email],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/joinedCamps?email=${user.email}`);
+            return res.data;
+        }
+    });
+
+    useEffect(() => {
+        if (joinedCamps.some(joinedCamp => joinedCamp.campId === _id)) {
+            setHasJoined(true);
+        } else {
+            setHasJoined(false);
+        }
+    }, [joinedCamps, _id]);
+
+    const handleJoinCamp = () => {
+        if (user && user.email) {
+            Swal.fire({
+                title: 'Enter your age',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Next',
+                showLoaderOnConfirm: true,
+                preConfirm: (age) => {
+                    return new Promise((resolve) => {
+                        resolve({ age });
+                    });
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const { age } = result.value;
+                    Swal.fire({
+                        title: 'Enter your phone number',
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: 'Next',
+                        showLoaderOnConfirm: true,
+                        preConfirm: (phoneNumber) => {
+                            return new Promise((resolve) => {
+                                resolve({ age, phoneNumber });
+                            });
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const { age, phoneNumber } = result.value;
+                            Swal.fire({
+                                title: 'Enter your gender',
+                                input: 'text',
+                                inputAttributes: {
+                                    autocapitalize: 'off'
+                                },
+                                showCancelButton: true,
+                                confirmButtonText: 'Next',
+                                showLoaderOnConfirm: true,
+                                preConfirm: (gender) => {
+                                    return new Promise((resolve) => {
+                                        resolve({ age, phoneNumber, gender });
+                                    });
+                                }
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    const { age, phoneNumber, gender } = result.value;
+                                    Swal.fire({
+                                        title: 'Enter your emergency contact',
+                                        input: 'text',
+                                        inputAttributes: {
+                                            autocapitalize: 'off'
+                                        },
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Join Camp',
+                                        showLoaderOnConfirm: true,
+                                        preConfirm: (emergencyContact) => {
+                                            return new Promise((resolve) => {
+                                                resolve({ age, phoneNumber, gender, emergencyContact });
+                                            });
+                                        }
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            const { age, phoneNumber, gender, emergencyContact } = result.value;
+                                            const joinedCampItem = {
+                                                campId: _id,
+                                                email: user.email,
+                                                userName: user.displayName,
+                                                campName,
+                                                image,
+                                                fees,
+                                                age,
+                                                phoneNumber,
+                                                gender,
+                                                emergencyContact
+                                            };
+                                            axiosSecure.post('/joinedCamps', joinedCampItem)
+                                                .then(res => {
+                                                    console.log(res.data);
+                                                    if (res.data.insertedId) {
+                                                        Swal.fire({
+                                                            position: "top-end",
+                                                            icon: "success",
+                                                            title: `${campName} added to your joined camps`,
+                                                            showConfirmButton: false,
+                                                            timer: 1500
+                                                        });
+                                                        refetch();
+                                                    }
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error joining camp:', error);
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: 'Oops...',
+                                                        text: 'An error occurred while joining the camp. Please try again later.',
+                                                    });
+                                                });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        } else {
+            Swal.fire({
+                title: "You are not Logged In",
+                text: "Please login to add to the joined camps?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, login!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login', { state: { from: location } });
+                }
+            });
+        }
+    };
+
 
 
     return (
@@ -22,9 +177,17 @@ const CampDetails = () => {
                         <div className='badge flex gap-2 p-4 text-xl'> <FaLocationDot></FaLocationDot> {location}</div>
                     </div>
 
-                    <h2 className="card-title font-merri text-4xl">
-                        {campName}
-                    </h2>
+                    <div className="flex">
+                        <h2 className="card-title font-merri text-4xl flex-1">
+                            {campName}
+                        </h2>
+                        <button onClick={handleJoinCamp}
+                            className="btn btn-outline "
+                            disabled={hasJoined}
+                        >
+                            {hasJoined ? 'Already Joined' : <div className=" text-blood text-2xl flex"><FaHouseMedicalFlag /> Join Camp </div> }
+                        </button>
+                    </div>
                     <div className="card my-20 bg-base-100 shadow-xl">
                         <div className="card-body font-playfair text-3xl">
                             <h2 className="card-title"></h2>
@@ -98,11 +261,11 @@ const CampDetails = () => {
                     <div className="card w-full shadow-2xl bg-base-100 rounded-4xl my-5">
                         <div className="card-body">
                             <p>Sponsors {sponsors.map(sponsor => <span key={sponsor} className="ml-5 btn btn-accent text-xl font-semibold">{sponsor}</span>)}</p>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
