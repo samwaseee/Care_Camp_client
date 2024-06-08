@@ -12,6 +12,9 @@ import Profile from "../pages/dashboard/shared/Profile";
 import AddCamp from "../pages/dashboard/Admin/AddCamp";
 import ManageRegCamps from "../pages/dashboard/Admin/ManageRegCamps";
 import ManageCamps from "../pages/dashboard/Admin/ManageCamps";
+import Annalytics from "../pages/dashboard/user/Annalytics";
+import RegiCamps from "../pages/dashboard/user/RegiCamps";
+import PaymentHistory from "../pages/dashboard/user/PaymentHistory";
 
 const router = createBrowserRouter([
     {
@@ -72,6 +75,18 @@ const router = createBrowserRouter([
             {
                 path: 'participantProfile',
                 element: <Profile></Profile>
+            },
+            {
+                path: 'annalytics',
+                element: <Annalytics></Annalytics>
+            },
+            {
+                path: 'registeredCamps',
+                element: <RegiCamps></RegiCamps>
+            },
+            {
+                path: 'paymentHistory',
+                element: <PaymentHistory></PaymentHistory>
             }
         ]
     }

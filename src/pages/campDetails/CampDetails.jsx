@@ -1,7 +1,7 @@
 import moment from "moment";
 import { Helmet } from "react-helmet";
 import { FaHouseMedicalFlag, FaLocationDot } from "react-icons/fa6";
-import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -169,7 +169,7 @@ const CampDetails = () => {
         <div className='py-20'>
             <div>
                 <Helmet>
-                    <title>SAM Travles | {campName}</title>
+                    <title>Care Camp | {campName}</title>
                 </Helmet>
 
                 <img src={image} alt={campName} className="mx-auto mt-10 rounded-3xl" />

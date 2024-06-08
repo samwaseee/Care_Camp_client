@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const Camp = ({camp}) => {
+const Camp = ({ camp }) => {
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl mx-auto mb-10">
             <figure><img src={camp.image} alt="Shoes" /></figure>
@@ -9,7 +9,9 @@ const Camp = ({camp}) => {
                 <h2 className="card-title">{camp.campName}</h2>
                 <p>{camp.description}</p>
                 <div className="card-actions justify-end">
-                    <Link to={`/camps/${camp._id}`}><button className="btn bg-second text-blood">Join camp</button></Link>
+                    <Link to={`/camps/${camp._id}`}><button
+                        onClick={() => window.reload()}
+                        className="btn bg-second text-blood">Join camp</button></Link>
                 </div>
             </div>
         </div>
@@ -18,6 +20,6 @@ const Camp = ({camp}) => {
 
 Camp.propTypes = {
     camp: PropTypes.object,
-  };
+};
 
 export default Camp;

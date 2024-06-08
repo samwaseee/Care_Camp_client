@@ -35,7 +35,9 @@ const ACamp = ({ camp, index, view }) => {
                 <p>Camp Lead By: {healthcareProfessional?.name}</p>
                 <p>Event Date: {dateTime}</p>
                 <div className="card-actions justify-end">
-                    <Link to={`/camps/${_id}`}><button className="btn btn-outline text-blood">Join Camp</button></Link>
+                    <Link to={`/camps/${_id}`}><button
+                        onClick={() => window.reload()}
+                        className="btn btn-outline text-blood">Join Camp</button></Link>
                 </div>
             </div>
         </div>
