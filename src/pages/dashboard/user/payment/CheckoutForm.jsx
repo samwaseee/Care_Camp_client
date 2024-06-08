@@ -1,13 +1,14 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useCart from "../../../hooks/useCart";
-import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useAuth from "../../../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 
-const CheckoutForm = () => {
+// eslint-disable-next-line react/prop-types
+const CheckoutForm = ({ id }) => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
     const [transactionId, setTransactionId] = useState('');
@@ -15,16 +16,27 @@ const CheckoutForm = () => {
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
-    const [cart, refetch] = useCart();
     const navigate = useNavigate();
 
-    const totalPrice = cart.reduce((total, item) => total + item.price, 0)
+
+
+    const { data: joinedCamps = [], isLoading: loading, refetch } = useQuery({
+        queryKey: ['camps', user?.email],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/joinedCamps/${id}`);
+            return res.data;
+        }
+    });
+
+    // console.log(joinedCamps)
+    const totalPrice = parseInt(joinedCamps[0]?.fees);
+
 
     useEffect(() => {
         if (totalPrice > 0) {
             axiosSecure.post('/create-payment-intent', { price: totalPrice })
                 .then(res => {
-                    console.log(res.data.clientSecret);
+                    // console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
@@ -44,7 +56,7 @@ const CheckoutForm = () => {
             return
         }
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        const { error} = await stripe.createPaymentMethod({
             type: 'card',
             card
         })
@@ -54,7 +66,7 @@ const CheckoutForm = () => {
             setError(error.message);
         }
         else {
-            console.log('payment method', paymentMethod)
+            // console.log('payment method', paymentMethod)
             setError('');
         }
 
@@ -78,30 +90,40 @@ const CheckoutForm = () => {
                 console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
 
-                // now save the payment in the database
                 const payment = {
-                    email: user.email,
-                    price: totalPrice,
+                    email: user?.email,
+                    price: joinedCamps[0].fees,
                     transactionId: paymentIntent.id,
-                    date: new Date(), // utc date convert. use moment js to 
-                    cartIds: cart.map(item => item._id),
-                    menuItemIds: cart.map(item => item.menuId),
+                    date: new Date(),
+                    joinedCampId: joinedCamps[0]._id,
+                    campId: joinedCamps[0].campId,
+                    campName: joinedCamps[0].campName,
                     status: 'pending'
                 }
 
+
                 const res = await axiosSecure.post('/payments', payment);
-                console.log('payment saved', res.data);
+                // console.log('payment saved', res.data);
                 refetch();
                 if (res.data?.paymentResult?.insertedId) {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Thank you for the taka paisa",
-                        showConfirmButton: false,
-                        timer: 1500
+                    const upres = await axiosSecure.patch(`/joinedCamps/payment/${joinedCamps[0]._id}`, {}, {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`
+                        }
                     });
-                    navigate('/dashboard/paymentHistory')
+
+                    if (upres.data.modifiedCount) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Thank you for the taka paisa",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate('/dashboard/paymentHistory')
+                    }
                 }
+
 
             }
         }
@@ -110,6 +132,10 @@ const CheckoutForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
+            {
+                loading && <div className='flex justify-center'><span className="loading loading-bars loading-lg scale-150"></span></div>
+            }
+            <h1 className="badge badge-neutral p-4 text-2xl font-taj font-semibold my-2">{joinedCamps[0]?.fees}</h1>
             <CardElement
                 options={{
                     style: {

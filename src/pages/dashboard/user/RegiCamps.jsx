@@ -23,29 +23,6 @@ const RegiCamps = () => {
 
     // console.log(joinedCamps)
 
-    const handleConfirmation = async (camp) => {
-        // console.log(camp)
-        try {
-            const res = await axiosSecure.patch(`/joinedCamps/${camp}`, {}, {
-                headers: {
-                    Authorization: `Bearer ${user.token}`
-                }
-            });
-            if (res.data.modifiedCount > 0) {
-                refetch();
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: `${camp.userName} is Confirmed!`,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            }
-        } catch (error) {
-            console.error('Error confirming camp:', error);
-        }
-    };
-
     const handleDelete = id => {
         //console.log(id);
         Swal.fire({
@@ -120,25 +97,32 @@ const RegiCamps = () => {
             title: 'Payment Status',
             dataIndex: 'paymentStatus',
             sorter: (a, b) => a.paymentStatus.localeCompare(b.paymentStatus),
-            render: (text) => (
-                <Link to={'/dashboard/payment'}
-                 className="tooltip" data-tip="Pay Now">
-                    <button
-                        style={{ color: text === 'Paid' ? 'green' : 'red' }}
-                        className='btn'
-                    >
-                        {text}
-                    </button>
-                </Link>
+            render: (text, record) => (
+                <div>
+                    {
+                        text === 'Paid' ?
+                        <Link to={`/dashboard/payment/${record.key}`}
+                            className="tooltip" data-tip="Pay Now">
+                            <button
+                                style={{ color: 'red' }}
+                                className='btn'
+                            >
+                                {text}
+                            </button>
+                        </Link>
+                        :
+                        <p className='badge badge-success text-neutral-50 p-3'>Paid</p>
+                    }
+                </div>
             ),
         },
         {
             title: 'Confirmation Status',
             dataIndex: 'confirmationStatus',
             sorter: (a, b) => a.confirmationStatus.localeCompare(b.confirmationStatus),
-            render: (text, record) => (
+            render: (text) => (
                 <span className={`icon ${text === 'Confirmed' ? 'icon-confirmed' : 'icon-pending'}`}>
-                    {text === 'Confirmed' ? <BsFillClipboardCheckFill size={25} /> : <button onClick={() => handleConfirmation(record.key)} className='btn btn-ghost p-1'><MdOutlinePendingActions size={25} /></button>}
+                    {text === 'Confirmed' ? <BsFillClipboardCheckFill size={25} /> : <MdOutlinePendingActions size={25} />}
                 </span>
             ),
         },
@@ -157,7 +141,7 @@ const RegiCamps = () => {
         key: camp._id,
         name: camp.userName,
         campName: camp.campName,
-        campFees: parseInt(camp.fees.split(' ')[0]),
+        campFees: parseInt(camp.fees),
         paymentStatus: camp.paymentStatus ? camp.paymentStatus : 'Unpaid',
         confirmationStatus: camp.confirmationStatus ? camp.confirmationStatus : 'Not Confirmed',
         age: camp.age,
