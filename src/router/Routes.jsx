@@ -15,6 +15,7 @@ import ManageCamps from "../pages/dashboard/Admin/ManageCamps";
 import Annalytics from "../pages/dashboard/user/Annalytics";
 import RegiCamps from "../pages/dashboard/user/RegiCamps";
 import PaymentHistory from "../pages/dashboard/user/PaymentHistory";
+import Payment from "../pages/dashboard/user/payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
             {
                 path: 'paymentHistory',
                 element: <PaymentHistory></PaymentHistory>
+            },
+            {
+                path: 'payment',
+                element: <Payment></Payment>
             }
         ]
     }

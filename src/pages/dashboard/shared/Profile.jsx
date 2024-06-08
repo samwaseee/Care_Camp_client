@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Profile = () => {
 
     const { user } = useAuth();
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="card lg:w-1/2  my-24 mx-auto bg-base-100 shadow-xl">
@@ -11,7 +13,10 @@ const Profile = () => {
             <div className="card-body">
                 <h2 className="card-title">
                     {user?.displayName}
-                    <div className="badge badge-secondary">ISAdmin</div>
+                    {
+                        isAdmin &&
+                        <div className="badge badge-secondary">Admin</div>
+                    }
                 </h2>
                 <p>{user?.email}</p>
                 <div className="card-actions justify-end">

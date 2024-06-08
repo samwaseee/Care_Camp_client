@@ -20,7 +20,7 @@ const CampDetails = () => {
     const { refetch, data: joinedCamps = [] } = useQuery({
         queryKey: ['joinedCamp', user?.email],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/joinedCamps?email=${user.email}`);
+            const res = await axiosSecure.get(`/joinedCamps/user?email=${user.email}`);
             return res.data;
         }
     });
