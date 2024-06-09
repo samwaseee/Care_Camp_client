@@ -40,7 +40,7 @@ const AVailableCamps = () => {
         <div className="py-20">
             <div className="card card-side bg-base-100 shadow-xl mb-5 justify-between p-2">
                 <form onSubmit={handleSearch} className="flex flex-1">
-                    <input type="text" name="search" placeholder="Search" className="input input-bordered md:w-auto" />
+                    <input type="text" name="search" placeholder="Search" className="input input-bordered w-36 md:w-auto" />
                     <button className="btn btn-ghost">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </button>
@@ -75,7 +75,7 @@ const AVailableCamps = () => {
                 </div>
             </div>
 
-            <div className={`grid gap-8 ${view === "list" ? 'grid-cols-1' : 'grid-cols-3'}`}>
+            <div className={`grid lg:gap-8 md:${view === "list" ? 'grid-cols-1' : 'grid-cols-2'} lg:${view === "list" ? 'grid-cols-1' : 'grid-cols-3'}`}>
                 {
                     loading ?
                         times.map((_, index) => {

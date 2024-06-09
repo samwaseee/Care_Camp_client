@@ -60,6 +60,30 @@ const Nav = () => {
             </NavLink>
         </li>
         <li>
+            <NavLink to="/feedbacksandRating" className="rounded-sm" style={({ isActive, isTransitioning }) => {
+                return {
+                    fontWeight: isActive ? "bold" : "",
+                    color: isActive ? "#f5333f" : "black",
+                    backgroundColor: isActive ? "transparent" : "",
+                    boxShadow: isActive ? "0 2px 4px rgba(0, 0, 0, 0.2)" : "",
+                    viewTransitionName: isTransitioning ? "slide" : "",
+                };
+            }}>Feedbacks and Ratings
+            </NavLink>
+        </li>
+        <li>
+            <NavLink to="/ourWork" className="rounded-sm" style={({ isActive, isTransitioning }) => {
+                return {
+                    fontWeight: isActive ? "bold" : "",
+                    color: isActive ? "#f5333f" : "black",
+                    backgroundColor: isActive ? "transparent" : "",
+                    boxShadow: isActive ? "0 2px 4px rgba(0, 0, 0, 0.2)" : "",
+                    viewTransitionName: isTransitioning ? "slide" : "",
+                };
+            }}>Our Work
+            </NavLink>
+        </li>
+        <li>
             {
                 user && 
             <NavLink to={isAdmin ? '/dashboard/organizerProfile' : '/dashboard/participantProfile'} className="rounded-sm" style={({ isActive, isTransitioning }) => {

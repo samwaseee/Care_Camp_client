@@ -45,9 +45,11 @@ const CampDetails = () => {
                 confirmButtonText: 'Next',
                 showLoaderOnConfirm: true,
                 preConfirm: (age) => {
-                    return new Promise((resolve) => {
-                        resolve({ age });
-                    });
+                    if (!age || isNaN(age)) {
+                        Swal.showValidationMessage('Please enter a valid age');
+                    } else {
+                        return { age: parseInt(age) };
+                    }
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -62,9 +64,11 @@ const CampDetails = () => {
                         confirmButtonText: 'Next',
                         showLoaderOnConfirm: true,
                         preConfirm: (phoneNumber) => {
-                            return new Promise((resolve) => {
-                                resolve({ age, phoneNumber });
-                            });
+                            if (!phoneNumber || isNaN(phoneNumber) || phoneNumber.length <10) {
+                                Swal.showValidationMessage('Please enter a valid phone number');
+                            } else {
+                                return { age, phoneNumber };
+                            }
                         }
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -79,9 +83,11 @@ const CampDetails = () => {
                                 confirmButtonText: 'Next',
                                 showLoaderOnConfirm: true,
                                 preConfirm: (gender) => {
-                                    return new Promise((resolve) => {
-                                        resolve({ age, phoneNumber, gender });
-                                    });
+                                    if (!gender || !isNaN(gender)) {
+                                        Swal.showValidationMessage('Please enter your gender');
+                                    } else {
+                                        return { age, phoneNumber, gender };
+                                    }
                                 }
                             }).then((result) => {
                                 if (result.isConfirmed) {
@@ -96,9 +102,11 @@ const CampDetails = () => {
                                         confirmButtonText: 'Join Camp',
                                         showLoaderOnConfirm: true,
                                         preConfirm: (emergencyContact) => {
-                                            return new Promise((resolve) => {
-                                                resolve({ age, phoneNumber, gender, emergencyContact });
-                                            });
+                                            if (!emergencyContact || isNaN(emergencyContact) || emergencyContact.length <10 ) {
+                                                Swal.showValidationMessage('Please enter your emergency contact');
+                                            } else {
+                                                return { age, phoneNumber, gender, emergencyContact };
+                                            }
                                         }
                                     }).then((result) => {
                                         if (result.isConfirmed) {
@@ -129,6 +137,8 @@ const CampDetails = () => {
                                                         });
                                                         refetch();
                                                     }
+                                                    
+                                                    setTimeout(() => window.location.reload(), 1500)
                                                 })
                                                 .catch(error => {
                                                     console.error('Error joining camp:', error);
@@ -146,6 +156,7 @@ const CampDetails = () => {
                     });
                 }
             });
+            
         } else {
             Swal.fire({
                 title: "You are not Logged In",
@@ -162,6 +173,7 @@ const CampDetails = () => {
             });
         }
     };
+    
 
 
 

@@ -16,6 +16,11 @@ import Annalytics from "../pages/dashboard/user/Annalytics";
 import RegiCamps from "../pages/dashboard/user/RegiCamps";
 import PaymentHistory from "../pages/dashboard/user/PaymentHistory";
 import Payment from "../pages/dashboard/user/payment/Payment";
+import Feedback from "../pages/dashboard/user/Feedback";
+import AdminRoute from "./AdminRoute";
+import Feedbacks from "../pages/feedbacksandRating/Feedbacks";
+import OurWork from "../pages/ourWork/OurWork";
+
 
 const router = createBrowserRouter([
     {
@@ -36,6 +41,15 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><CampDetails></CampDetails></PrivateRoute>
             },
             {
+                path: 'feedbacksandRating',
+                loader: ()=> fetch('http://localhost:5000/feedbacks'),
+                element: <Feedbacks></Feedbacks>
+            },
+            {
+                path: 'ourWork',
+                element: <OurWork></OurWork>
+            },
+            {
                 path: 'signin',
                 element: <SignIn></SignIn>
             },
@@ -51,23 +65,23 @@ const router = createBrowserRouter([
         children: [
             {
                 path: 'organizerProfile',
-                element: <Profile></Profile>
+                element: <AdminRoute><Profile></Profile></AdminRoute>
             },
             {
                 path: 'updateProfile',
-                element: <UpdateProfile></UpdateProfile>
+                element: <AdminRoute><UpdateProfile></UpdateProfile></AdminRoute>
             },
             {
                 path: 'addCamp',
-                element: <AddCamp></AddCamp>
+                element: <AdminRoute><AddCamp></AddCamp></AdminRoute>
             },
             {
                 path: 'manageCamps',
-                element: <ManageCamps></ManageCamps>
+                element: <AdminRoute><ManageCamps></ManageCamps></AdminRoute>
             },
             {
                 path: 'manageRegCamps',
-                element: <ManageRegCamps></ManageRegCamps>
+                element: <AdminRoute><ManageRegCamps></ManageRegCamps></AdminRoute>
             },
 
 
@@ -88,6 +102,10 @@ const router = createBrowserRouter([
             {
                 path: 'paymentHistory',
                 element: <PaymentHistory></PaymentHistory>
+            },
+            {
+                path: 'feedback/:id',
+                element: <Feedback></Feedback>
             },
             {
                 path: 'payment/:id',

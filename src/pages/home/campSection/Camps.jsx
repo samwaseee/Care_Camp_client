@@ -10,7 +10,7 @@ const Camps = () => {
 
     return (
         <>
-            <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto">
+            <div className="mt-20 grid grid-cols-1 lg:grid-cols-3 mx-auto">
                 {
                     loading ?
                         times.map((_, index) => {
@@ -30,7 +30,7 @@ const Camps = () => {
                             camp={camp}></Camp>)
                 }
             </div>
-            <Link to={'/camps'} onClick={() => window.reload()} className="btn btn-outline ml-[46vw] rounded-none text-blood">See all Camps</Link>
+            <Link to={'/camps'} onClick={() => window.reload()} className="btn btn-outline ml-[40vw] md:ml-[46vw] rounded-none text-blood">See all Camps</Link>
         </>
     );
 };

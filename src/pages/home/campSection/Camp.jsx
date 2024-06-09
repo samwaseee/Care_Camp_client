@@ -9,8 +9,7 @@ const Camp = ({ camp }) => {
                 <h2 className="card-title">{camp.campName}</h2>
                 <p>{camp.description}</p>
                 <div className="card-actions justify-end">
-                    <Link to={`/camps/${camp._id}`}><button
-                        onClick={() => window.reload()}
+                    <Link to={`/camps/${camp._id}`} onClick={() => window.reload()}><button
                         className="btn bg-second text-blood">Join camp</button></Link>
                 </div>
             </div>

@@ -116,7 +116,7 @@ const AddCamp = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(formSubmit)} className="px-32 mx-auto my-20 text-black">
+        <form onSubmit={handleSubmit(formSubmit)} className="p-2 lg:px-32 mx-auto my-20 text-black">
             <h3
                 className="text-6xl text-neutral-50 font-taj text-white text-center font-bold mb-20 p-20"
                 style={{

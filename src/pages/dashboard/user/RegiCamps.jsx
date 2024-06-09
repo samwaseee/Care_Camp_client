@@ -42,7 +42,7 @@ const RegiCamps = () => {
                             refetch();
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "Your file has been deleted.",
+                                text: "Your Camp Registration cancelled.",
                                 icon: "success"
                             });
                         }
@@ -66,7 +66,9 @@ const RegiCamps = () => {
             title: 'Camp Fees',
             dataIndex: 'campFees',
             sorter: (a, b) => a.campFees - b.campFees,
-            render: (text) => `$${text}`,
+            render: (text) => {
+                return !isNaN(text) ? `$${text}` : 'Free';
+            },
         },
         {
             title: 'Age',
@@ -100,18 +102,19 @@ const RegiCamps = () => {
             render: (text, record) => (
                 <div>
                     {
-                        text === 'Paid' ?
-                        <Link to={`/dashboard/payment/${record.key}`}
-                            className="tooltip" data-tip="Pay Now">
-                            <button
-                                style={{ color: 'red' }}
-                                className='btn'
-                            >
-                                {text}
-                            </button>
-                        </Link>
-                        :
-                        <p className='badge badge-success text-neutral-50 p-3'>Paid</p>
+                        text === 'Unpaid' || record.campFees === 'free' ?
+                            <p className='badge badge-success text-neutral-50 p-3'>Paid</p>
+                            :
+                            <Link to={`/dashboard/payment/${record.key}`}
+                                className="tooltip" data-tip="Pay Now">
+                                <button
+                                    style={{ color: 'red' }}
+                                    className='btn'
+                                >
+                                    Pay
+                                </button>
+                            </Link>
+                            
                     }
                 </div>
             ),
@@ -124,6 +127,17 @@ const RegiCamps = () => {
                 <span className={`icon ${text === 'Confirmed' ? 'icon-confirmed' : 'icon-pending'}`}>
                     {text === 'Confirmed' ? <BsFillClipboardCheckFill size={25} /> : <MdOutlinePendingActions size={25} />}
                 </span>
+            ),
+        },
+        {
+            title: 'Feedback',
+            dataIndex: 'feedback',
+            render: (text, record) => (
+                <Link to={`/dashboard/feedback/${record.campName}`} className={`${text === 'Not Confirmed' && 'tooltip'}`} data-tip="Pay and wait for organizer approval">
+                    <button className={`icon btn ${text === 'Not Confirmed' && 'btn-disabled'}`}>
+                        Give Feedback
+                    </button>
+                </Link>
             ),
         },
         {
@@ -141,9 +155,10 @@ const RegiCamps = () => {
         key: camp._id,
         name: camp.userName,
         campName: camp.campName,
-        campFees: parseInt(camp.fees),
+        campFees: camp.fees === 'free' ? 'Free' : parseInt(camp.fees),
         paymentStatus: camp.paymentStatus ? camp.paymentStatus : 'Unpaid',
         confirmationStatus: camp.confirmationStatus ? camp.confirmationStatus : 'Not Confirmed',
+        feedback: camp.confirmationStatus ? camp.confirmationStatus : 'Not Confirmed',
         age: camp.age,
         phoneNumber: camp.phoneNumber,
         gender: camp.gender,
