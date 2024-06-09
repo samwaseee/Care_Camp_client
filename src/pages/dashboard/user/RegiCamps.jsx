@@ -102,7 +102,7 @@ const RegiCamps = () => {
             render: (text, record) => (
                 <div>
                     {
-                        text === 'Unpaid' || record.campFees === 'free' ?
+                        text === 'Paid' || record.campFees === 'free' ?
                             <p className='badge badge-success text-neutral-50 p-3'>Paid</p>
                             :
                             <Link to={`/dashboard/payment/${record.key}`}
@@ -156,7 +156,7 @@ const RegiCamps = () => {
         name: camp.userName,
         campName: camp.campName,
         campFees: camp.fees === 'free' ? 'Free' : parseInt(camp.fees),
-        paymentStatus: camp.paymentStatus ? camp.paymentStatus : 'Unpaid',
+        paymentStatus: camp.paymentStatus ? 'Paid' : 'Unpaid',
         confirmationStatus: camp.confirmationStatus ? camp.confirmationStatus : 'Not Confirmed',
         feedback: camp.confirmationStatus ? camp.confirmationStatus : 'Not Confirmed',
         age: camp.age,
@@ -175,9 +175,9 @@ const RegiCamps = () => {
             <Table
                 dataSource={data}
                 columns={columns}
-                onChange={(pagination, filters, sorter, extra) => {
-                    console.log('params', pagination, filters, sorter, extra);
-                }}
+                // onChange={(pagination, filters, sorter, extra) => {
+                //     // console.log('params', pagination, filters, sorter, extra);
+                // }}
                 sortIcon={<span className="icon">↑↓</span>}
             />
 

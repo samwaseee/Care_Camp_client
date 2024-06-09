@@ -44,7 +44,7 @@ const PaymentHistory = () => {
         {
             title: 'date',
             dataIndex: 'date',
-            sorter: (a, b) => a.date.localeCompare(b.date),
+            sorter: (a, b) => moment(a.date, 'MMMM Do YYYY, h:mm:ss a').unix() - moment(b.date, 'MMMM Do YYYY, h:mm:ss a').unix(),
         },
         {
             title: 'Payment Status',
