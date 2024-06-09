@@ -37,12 +37,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "camps/:id",
-                loader: ({params}) => fetch(`http://localhost:5000/camps/${params.id}`),
+                loader: ({params}) => fetch(`https://care-camp-server-alpha.vercel.app/camps/${params.id}`),
                 element: <PrivateRoute><CampDetails></CampDetails></PrivateRoute>
             },
             {
                 path: 'feedbacksandRating',
-                loader: ()=> fetch('http://localhost:5000/feedbacks'),
+                loader: ()=> fetch('https://care-camp-server-alpha.vercel.app/feedbacks'),
                 element: <Feedbacks></Feedbacks>
             },
             {
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <Dashboard></Dashboard>,
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
             {
                 path: 'organizerProfile',

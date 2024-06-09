@@ -28,9 +28,9 @@ const SignUp = () => {
 
 
                 createUser(data.email, data.password)
-                    .then(result => {
-                        const loggedUser = result.user;
-                        console.log(loggedUser);
+                    .then(() => {
+                        // const loggedUser = result.user;
+                        // console.log(loggedUser);
                         updateUserProfile(data.name, img)
                             .then(() => {
                                 const userInfo = {

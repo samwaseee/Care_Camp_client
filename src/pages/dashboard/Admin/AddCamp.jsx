@@ -49,7 +49,7 @@ const AddCamp = () => {
             });
             return;
         }
-        console.log('Form Data:', data);
+        // console.log('Form Data:', data);
 
 
         try {
@@ -58,7 +58,7 @@ const AddCamp = () => {
             const res = await axiosPublic.post(image_hosting_api, imageFile);
 
             if (res.data.success) {
-                console.log('Image URL:', res.data.data.display_url);
+                // console.log('Image URL:', res.data.data.display_url);
 
                 // eslint-disable-next-line no-unused-vars
                 const { photo, ...formData } = data;

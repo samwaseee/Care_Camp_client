@@ -14,14 +14,12 @@ const SocialSignIn = () => {
     const handleGoogleLogin = () => {
         GoogleLogin()
             .then(result => {
-                console.log(result.user);
                 const userInfo = {
                     email: result.user?.email,
                     name: result.user?.displayName
                 }
                 axiosPublic.post('/users', userInfo)
-                .then(res =>{
-                    console.log(res.data);
+                .then(() =>{
                     navigate(location?.state ? location.state : '/');
                 })
             })
@@ -30,14 +28,14 @@ const SocialSignIn = () => {
     const handleTwitterLogin = () => {
         TwitterLogin()
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
                 const userInfo = {
                     email: result.user?.email,
                     name: result.user?.displayName
                 }
                 axiosPublic.post('/users', userInfo)
-                .then(res =>{
-                    console.log(res.data);
+                .then(() =>{
+                    // console.log(res.data);
                     navigate(location?.state ? location.state : '/');
                 })
             })
