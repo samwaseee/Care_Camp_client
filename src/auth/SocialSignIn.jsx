@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { FaXTwitter } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 
 const SocialSignIn = () => {
@@ -19,7 +20,18 @@ const SocialSignIn = () => {
                     name: result.user?.displayName
                 }
                 axiosPublic.post('/users', userInfo)
-                .then(() =>{
+                .then(() => {
+                    //const user = result.user;
+                    // console.log(user);
+                    Swal.fire({
+                        title: 'User Signing Successful.',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    });
                     navigate(location?.state ? location.state : '/');
                 })
             })
@@ -34,8 +46,18 @@ const SocialSignIn = () => {
                     name: result.user?.displayName
                 }
                 axiosPublic.post('/users', userInfo)
-                .then(() =>{
-                    // console.log(res.data);
+                .then(() => {
+                    //const user = result.user;
+                    // console.log(user);
+                    Swal.fire({
+                        title: 'User Signing Successful.',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    });
                     navigate(location?.state ? location.state : '/');
                 })
             })

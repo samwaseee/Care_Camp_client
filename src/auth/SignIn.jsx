@@ -29,7 +29,7 @@ const SignIn = () => {
                 //const user = result.user;
                 // console.log(user);
                 Swal.fire({
-                    title: 'User SignIn Successful.',
+                    title: 'User Signing Successful.',
                     showClass: {
                         popup: 'animate__animated animate__fadeInDown'
                     },
@@ -59,8 +59,8 @@ const SignIn = () => {
             <Helmet>
                 <title>Bistro Boss | SignIn</title>
             </Helmet>
-            <div className="hero min-h-screen bg-base-200 py-24 w-[100vw">
-                <div className="hero-content flex-col md:flex-row gap-72">
+            <div className="hero min-h-screen bg-base-200 py-24 w-[100vw]">
+                <div className="hero-content flex-col lg:flex-row gap-72">
                     <div className="bg-neutral-950 bg-opacity-50 w-full absolute">
                         <Parallax
                             blur={{ min: -15, max: 15 }}
@@ -77,8 +77,8 @@ const SignIn = () => {
                         </Parallax>
                     </div>
                     <div className='z-10 text-neutral-50'>
-                        <h1 className="text-5xl font-bold">Sign In now!</h1>
-                        <p className="py-6">Participate in the ever growing healtcare community</p>
+                        <h1 className="text-5xl font-bold text-neutral-300">Sign In now!</h1>
+                        <p className="py-6 text-neutral-300">Participate in the ever growing healtcare community</p>
                     </div>
                     <div className="card md:w-96 shadow-2xl bg-base-100">
                         <form onSubmit={handleSignIn} className="card-body">

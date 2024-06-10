@@ -142,7 +142,7 @@ const SignUp = () => {
                                     <input className="btn btn-primary" type="submit" value="Sign Up" />
                                 </div>
                             </form>
-                            <p className="mx-auto pb-4"><small>Already have an account <Link to="/login"> <strong>Login</strong> </Link></small></p>
+                            <p className="mx-auto pb-4"><small>Already have an account <Link to="/signin"> <strong>Login</strong> </Link></small></p>
                         </div>
                     </div>
                 </div>

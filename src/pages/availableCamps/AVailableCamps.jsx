@@ -4,12 +4,15 @@ import ViewModuleIcon from '@mui/icons-material/ViewModule';
 
 import useCamps from "../../hooks/useCamps";
 import ACamp from "./ACamp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const AVailableCamps = () => {
+    const location = useLocation();
 
+    const Navsearch = location.state?.search || "";
     const [sort, setSort] = useState("");
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState(Navsearch);
 
     const [camps, loading, refetch] = useCamps(sort,search);
 
@@ -35,6 +38,10 @@ const AVailableCamps = () => {
     const handleChange = (event, nextView) => {
         setView(nextView);
     };
+
+    useEffect(() => {
+        refetch(); 
+    }, [Navsearch, refetch]);
 
     return (
         <div className="py-20">

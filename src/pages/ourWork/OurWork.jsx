@@ -4,7 +4,7 @@ const OurWork = () => {
             <section className="relative">
                 <img src="https://www.ifrc.org/sites/default/files/styles/hero_image_mobile_540_x_320_/public/2023-08/lebanese-red-cross-ambulance-beirut-blast-p-lbn0446.jpg?itok=-hkZIu_s" alt="Emergency scene" className="w-full h-96 object-cover" />
                 <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
-                <div className="absolute top-36 lg:top-40 lg:left-40 w-full h-full flex items-center justify-center scale-50 md:scale-100">
+                <div className="absolute top-36 lg:top-36 lg:left-40 w-full h-full flex items-center justify-center scale-50 lg:scale-100">
                     <div className="bg-base-100 max-w-xl mx-auto rounded shadow-md md:flex gap-5">
                         <h2 className="text-2xl font-bold bg-second p-10">Emergency health</h2>
                         <p className="py-10 px-2">The Care camp and our 191 National Societies strive to reduce illness and death, improve health and maintain people’s dignity during emergencies. Our emergency health team works to improve the quality, reliability, predictability and flexibility of our health services around the world in preparation for emergencies.</p>
@@ -52,7 +52,7 @@ const OurWork = () => {
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
                     <div className="text-center text-neutral-50 px-6">
                         <h2 className="text-3xl font-bold mb-4">Make a general donation</h2>
-                        <p className="mb-4">Donating to our central pool of funds gives us the flexibility to respond wherever and whenever people's needs are greatest.</p>
+                        <p className="mb-4">Donating to our central pool of funds gives us the flexibility to respond wherever and whenever people`&apos;`s needs are greatest.</p>
                         <button className="btn text-blue-900 font-bold py-2 px-4 rounded border-none hover:bg-blood">
                             Donate now
                         </button>

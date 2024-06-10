@@ -20,12 +20,14 @@ import Feedback from "../pages/dashboard/user/Feedback";
 import AdminRoute from "./AdminRoute";
 import Feedbacks from "../pages/feedbacksandRating/Feedbacks";
 import OurWork from "../pages/ourWork/OurWork";
+import Error from "../pages/error/Error";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App></App>,
+        errorElement: <Error />,
         children: [
             {
                 path: "/",

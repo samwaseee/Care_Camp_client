@@ -35,7 +35,7 @@ const ManageRegCamps = () => {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: `${camp.userName} is Confirmed!`,
+                    title: `Participant Registration is Confirmed!`,
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -120,7 +120,7 @@ const ManageRegCamps = () => {
             dataIndex: 'paymentStatus',
             sorter: (a, b) => a.paymentStatus.localeCompare(b.paymentStatus),
             render: (text) => (
-                <span style={{ color: text === 'Paid' ? 'green' : 'red' }}>
+                <span style={{ color: text === 'paid' ? 'green' : 'red' }}>
                     {text}
                 </span>
             ),

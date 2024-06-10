@@ -26,7 +26,7 @@ const Feedback = () => {
             participant: user?.displayName,
             participantImage: user?.photoURL,
             participantMail: user?.email,
-            dateTime: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+            dateTime: moment().format('MMMM Do YYYY, h:mm:ss a'),
             feedback: data.description,
             campName: id
         };
@@ -44,7 +44,7 @@ const Feedback = () => {
                     timer: 1500
                 });
                 reset();
-                navigate('/dashboard/registeredCamps');
+                navigate('/');
             }
         } catch (error) {
             console.log( error);
