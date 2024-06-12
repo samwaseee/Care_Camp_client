@@ -169,6 +169,7 @@ const ManageRegCamps = () => {
             <Table
                 dataSource={data}
                 columns={columns}
+                scroll={{ x: 'max-content' }}
                 onChange={(pagination, filters, sorter, extra) => {
                     console.log('params', pagination, filters, sorter, extra);
                 }}

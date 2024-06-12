@@ -215,6 +215,7 @@ const ManageCamps = () => {
       <Table
         dataSource={data}
         columns={columns}
+        scroll={{ x: 400  }}
         onChange={(pagination, filters, sorter, extra) => {
           console.log('params', pagination, filters, sorter, extra);
         }}
