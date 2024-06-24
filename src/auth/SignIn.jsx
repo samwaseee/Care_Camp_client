@@ -57,7 +57,7 @@ const SignIn = () => {
     return (
         <>
             <Helmet>
-                <title>Bistro Boss | SignIn</title>
+                <title>Care Camp | SignIn</title>
             </Helmet>
             <div className="hero min-h-screen bg-base-200 py-24 w-[100vw]">
                 <div className="hero-content flex-col lg:flex-row gap-72">
