@@ -36,9 +36,20 @@ Care Camp is a comprehensive web application designed to streamline the manageme
 ## Setup and Installation
 1. Clone the repository to your local machine.
 2. Navigate to the project directory.
-3. Install the necessary dependencies using npm install.
-4. Create a .env file and define the necessary environment variables.
-5. Start the server using npm start.
+3. Install the necessary dependencies using `npm install`.
+4. Create a `.env` file and define the necessary environment variables.
+5. Start the server using `npm start`.
 
 ## Usage
-After setting up the project, navigate to the localhost with the specified port in the browser. Explore the application by visiting the different pages and trying out the features.
+To run this application on your local machine, you need to create a `.env` file in the root directory with the following keys and their respective descriptions:
+
+- `VITE_APIKEY`: Your Firebase API key.
+- `VITE_AUTHDOMAIN`: Your Firebase Auth domain.
+- `VITE_PROJECTID`: Your Firebase project ID.
+- `VITE_STORAGEBUCKET`: Your Firebase storage bucket.
+- `VITE_MESSAGINGSENDERID`: Your Firebase messaging sender ID.
+- `VITE_APPID`: Your Firebase app ID.
+- `VITE_IMAGE_HOSTING_KEY`: Your image hosting service key.
+- `VITE_Payment_Gateway_PK`: Your payment gateway public key.
+
+After setting up the project, navigate to the specified localhost port in your browser. Explore the application by visiting the different pages and trying out the features.
