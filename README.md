@@ -1,7 +1,12 @@
 # Care Camp
 
 Welcome to the GitHub repository of BookedInn, a hotel booking website. 
-> **[Live site](https://care-camp-a12.web.app)**       **[Server side repo](https://github.com/samwaseee/Care_Camp_server)**
+> **[Live site](https://care-camp-a12.web.app)**
+
+<img width="2612" height="1632" alt="image" src="https://github.com/user-attachments/assets/a6f93b96-1a27-4b5a-a4e8-ab790ce66cc7" />
+
+
+> **[Server side repo](https://github.com/samwaseee/Care_Camp_server)**
 
 ## Introduction
 Care Camp is a comprehensive web application designed to streamline the management and coordination of medical camps. It serves as a bridge between organizers _(Meta and Hero)_ and participants, providing a platform for efficient interaction and communication.
